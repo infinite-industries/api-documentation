@@ -1,0 +1,597 @@
+openapi: 3.0.1
+info:
+  description: >-
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget neque
+    imperdiet, accumsan erat aliquet, elementum elit.
+  version: 1.0.0
+  title: Infinite Industries API
+  license:
+    name: MIT License
+    url: 'https://opensource.org/licenses/MIT'
+  contact:
+    name: Dmitry "Dima" Stakovsky
+    email: shifting.planes@gmail.com
+servers:
+  - url: 'localhost:3003'
+tags:
+  - name: curators
+    description: Curator management endpoints
+  - name: events
+    description: Event management endpoints
+  - name: event lists
+    description: Event list management endpoints
+  - name: venues
+    description: Venue management endpoints
+  - name: users
+    description: User management endpoints
+paths:
+  /curators:
+    get:
+      summary: Return a list of all curators
+      description: TBD
+      tags:
+        - curators
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  curators:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/curator'
+    post:
+      summary: Add a new curator
+      description: TBD
+      tags:
+        - curators
+      requestBody:
+        description: TBD
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/curator'
+      responses:
+        '200':
+          description: success
+  '/curators/{id}':
+    get:
+      summary: Return a single curator
+      tags:
+        - curators
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the curator to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  curator:
+                    $ref: '#/components/schemas/curator'
+    put:
+      summary: Update an existing curator
+      tags:
+        - curators
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the curator to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+  /events:
+    get:
+      summary: Return a list of all events
+      tags:
+        - events
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/event'
+    post:
+      summary: Add a new event
+      tags:
+        - events
+      requestBody:
+        description: TBD
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  id:
+                    type: string
+  '/events/{id}':
+    get:
+      summary: Return a single event
+      tags:
+        - events
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the event to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  event:
+                    $ref: '#/components/schemas/event'
+    put:
+      summary: Update an existing event
+      tags:
+        - events
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the event to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+  /events/current/non-verified:
+    get:
+      summary: Return a list of all unverified events
+      tags:
+        - events
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/event'
+  /events/current/verified:
+    get:
+      summary: Return a list of all verified events
+      tags:
+        - events
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/event'
+  '/events/verify/{id}':
+    put:
+      summary: TBD
+      tags:
+        - events
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the event to verify
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Verify an existing event
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+  /event-lists:
+    get:
+      summary: Return a list of all event lists
+      tags:
+        - event lists
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  eventLists:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/eventList'
+    post:
+      summary: Add a new event list
+      tags:
+        - event lists
+      requestBody:
+        description: TBD
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventList'
+      responses:
+        '200':
+          description: success
+  '/event-lists/{id}':
+    get:
+      summary: Return a single event list
+      tags:
+        - event lists
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the event list to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  eventList:
+                    $ref: '#/components/schemas/eventList'
+    put:
+      summary: Update an existing event list
+      tags:
+        - event lists
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the event list to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+  /venues:
+    get:
+      summary: Return a list of all venues
+      tags:
+        - venues
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  venues:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/venue'
+    post:
+      summary: Add a new venue
+      tags:
+        - venues
+      requestBody:
+        description: TBD
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/venue'
+      responses:
+        '200':
+          description: success
+  '/venues/{id}':
+    get:
+      summary: Return a single venue
+      tags:
+        - venues
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the venue to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  venue:
+                    $ref: '#/components/schemas/venue'
+    put:
+      summary: Update an existing venue
+      tags:
+        - venues
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the venue to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+  /users:
+    get:
+      summary: Return a list of all users
+      tags:
+        - users
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user'
+    post:
+      summary: Add a new user
+      tags:
+        - users
+      requestBody:
+        description: TBD
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: success
+  '/users/{id}':
+    get:
+      summary: Return a single user
+      tags:
+        - users
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the user to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/user'
+    put:
+      summary: Update an existing user
+      tags:
+        - users
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: The ID of the user to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+components:
+  schemas:
+    curator:
+      type: object
+      properties:
+        id:
+          type: string
+    event:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        slug:
+          type: string
+        when:
+          type: string
+        time_start:
+          type: string
+          format: date-time
+        time_end:
+          type: string
+          format: date-time
+        website:
+          type: string
+        image:
+          type: string
+        social-image:
+          type: string
+        admission-fee:
+          type: string
+        address:
+          type: string
+        map_link:
+          type: string
+        brief_description:
+          type: string
+        description:
+          type: string
+        ticket_link:
+          type: string
+        fb_event_link:
+          type: string
+        eventbrite_link:
+          type: string
+        bitly_link:
+          type: string
+        verified:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        links:
+          type: array
+          items:
+            type: string
+        organizers:
+          type: array
+          items:
+            type: string
+        venues:
+          type: array
+          items:
+            $ref: '#/components/schemas/venue'
+    eventList:
+      type: object
+      properties:
+        id:
+          type: string
+        last_name:
+          type: string
+        description:
+          type: string
+        __v:
+          type: integer
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/event'
+        curators:
+          type: array
+          items:
+            $ref: '#/components/schemas/curator'
+    venue:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        g_map_link:
+          type: string
+        __v:
+          type: integer
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+        identifier:
+          type: string
+        settings:
+          type: object
+          properties:
+            fist_name:
+              type: string
+            last_name:
+              type: string
+            user_name:
+              type: string
+            contact_email:
+              type: string
+            home_event_area:
+              type: string
+            facebook:
+              type: string
+            twitter:
+              type: string
+            instagram:
+              type: string
+        __v:
+          type: integer
+        lists_follow:
+          type: array
+          items:
+            $ref: '#/components/schemas/eventList'
+        lists_my:
+          type: array
+          items:
+            $ref: '#/components/schemas/eventList'
+        permissions_edit_lists:
+          type: array
+          items:
+            type: string
+        permissions_post_as_venues:
+          type: array
+          items:
+            type: string
